@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h3 style="text-align: center;">Kasalxona qo'shish</h3>
+                <p style="text-align: center;">Kasalxonangizni qo'shish orqali yangi bemorlarni qabul qiling</p>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-danger">Qo'shish</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

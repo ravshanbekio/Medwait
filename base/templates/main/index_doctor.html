@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section>
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-md-8 offset-md-2">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="date" class="form-control" name="input-date" id="input-date"><br>
+                    <button class="btn btn-danger" type="submit">Sana bo'yicha filtrlash</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container mt-5 mb-3">
+    <div class="row">
+        {% for sick in sicks %}
+            <div class="col-md-4">
+                <div class="card p-3 mb-2">
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex flex-row align-items-center">
+                            <div class="icon"> <i class="bx bxl-mailchimp"></i> </div>
+                            <div class="ms-2 c-details">
+                                <h6 class="mb-0">{{ sick.account.phone_number }}</h6> <span>{{ sick.timestamp|timesince }}</span>
+                            </div>
+                        </div> 
+                        <div class="badge"> <span>Design</span> </div>
+                    </div>
+                    <div class="mt-5">
+                        <h3 class="heading">{{ sick.account.username }}</h3>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% include 'navbar.html' %}
+
+<section class="page-title bg-1">
+	<div class="overlay"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="block text-center">
+					<span class="text-white">Doktor ma`lumotlari</span>
+					<h1 class="text-capitalize mb-5 text-lg">{{ doctor.first_name|title }} {{ doctor.last_name|title }}
+					</h1>
+
+					<!-- <ul class="list-inline breadcumb-nav">
+            <li class="list-inline-item"><a href="index.html" class="text-white">Home</a></li>
+            <li class="list-inline-item"><span class="text-white">/</span></li>
+            <li class="list-inline-item"><a href="#" class="text-white-50">Doctor Details</a></li>
+          </ul> -->
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<section class="section doctor-single">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4 col-md-6">
+				<div class="doctor-img-block">
+					<img src="{{ doctor.preview_photo.url }}" alt="" class="img-fluid w-100">
+
+					<div class="info-block mt-4">
+						<h4 class="mb-0">{{ doctor.first_name|title }} {{ doctor.last_name|title }}</h4>
+						<p>{{ doctor.department.name }}</p>
+
+						<ul class="list-inline mt-4 doctor-social-links">
+							<li class="list-inline-item"><a href="#"><i class="icofont-facebook"></i></a></li>
+							<li class="list-inline-item"><a href="#"><i class="icofont-twitter"></i></a></li>
+							<li class="list-inline-item"><a href="#"><i class="icofont-skype"></i></a></li>
+							<li class="list-inline-item"><a href="#"><i class="icofont-linkedin"></i></a></li>
+							<li class="list-inline-item"><a href="#"><i class="icofont-pinterest"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-8 col-md-6">
+				<div class="doctor-details mt-4 mt-lg-0">
+					<h2 class="text-md">Tavsif</h2>
+					<div class="divider my-4"></div>
+					<p>{{ doctor.description|linebreaks|urlize }}</p>
+					{% if request.user in doctor.sick_list.all %}
+						<p>Ro'yxatga yozildingiz!</p>
+					{% else %}
+						<form action="{% url 'add-sick' doctor.slug %}" method="post">
+							{% csrf_token %}
+							<input type="date" class="form-control col-md-4" name="input-date" id="input-date">
+							<button type="submit" class="btn btn-main-2 btn-round-full mt-3">Qabulga yozilish<i
+								class="icofont-simple-right ml-2  "></i></button>
+						</form>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="section doctor-skills">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4">
+				<div class="skill-list">
+					<h5 class="mb-4">Navbat</h5>
+					<ul class="list-unstyled department-service">
+						{% for sick in sick_item %}
+							<li><i class="icofont-check mr-2"></i>{{ sick.account.phone_number }}</li>
+						{% endfor %}
+
+						{% if request.user in doctor.sick_list.all %}
+							<a href="{% url 'delete-sick' doctor.slug %}" class="btn btn-main-2 btn-round-full mt-3">Qabuldan o'chirish<i
+								class="icofont-simple-right ml-2  "></i></a>
+						{% endif %}
+						<p>Ushbu <a href="{% url 'sickness-list' %}">sahifa</a> orqali kasallikingiz haqida ko'proq ma`lumot hamda maslahatlarni olishingiz mumkin.</p>
+					</ul>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="sidebar-widget  gray-bg p-4">
+					<h5 class="mb-4">Ish vaqti</h5>
+
+					<ul class="list-unstyled lh-35">
+						<li class="d-flex justify-content-between align-items-center">
+							<a href="#">Dushanba - Juma</a>
+							<span>{{ doctor.work_start_time }} - {{ doctor.work_end_time }}</span>
+						</li>
+						<li class="d-flex justify-content-between align-items-center">
+							<a href="#">Shanba</a>
+							<span>{{ doctor.work_start_time }} - {{ doctor.work_end_time }}</span>
+						</li>
+						<li class="d-flex justify-content-between align-items-center">
+							<a href="#">Yakshanba</a>
+							<span>Dam olish kuni</span>
+						</li>
+					</ul>
+
+					<div class="sidebar-contatct-info mt-4">
+						<p class="mb-0">Qo'shimcha yordam kerakmi?</p>
+						<h3 class="text-color-2">+998-...-..-..</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock content %}

@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'navbar.html' %}
+
+<!-- Slider Start -->
+<section class="banner">
+	<div class="container">
+		<div class="row">
+			
+		</div>
+	</div>
+</section>
+<section class="features">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="feature-block d-lg-flex">
+					<div class="feature-item mb-5 mb-lg-0">
+						<div class="feature-icon mb-4">
+							<i class="icofont-surgeon-alt"></i>
+						</div>
+						<span>24 soat xizmat ko'rsatish</span>
+						<h4 class="mb-3">Online yordam</h4>
+						<p class="mb-4">Istalgan vaqtda doktorlarga qabulga yozilishingiz mumkin!</p>
+						<a href="{% url 'departments' %}" class="btn btn-main btn-round-full">Qabulga yozilish</a>
+					</div>
+				
+					<div class="feature-item mb-5 mb-lg-0">
+						<div class="feature-icon mb-4">
+							<i class="icofont-ui-clock"></i>
+						</div>
+						<h4 class="mb-3">Ish vaqtlari</h4>
+						<ul class="w-hours list-unstyled">
+		                    <li class="d-flex justify-content-between">Dushanba - Chorshanba : <span>8:00 - 17:00</span></li>
+		                    <li class="d-flex justify-content-between">Payshanba - Juma : <span>9:00 - 17:00</span></li>
+		                    <li class="d-flex justify-content-between">Shanba - Yakshanba : <span>10:00 - 17:00</span></li>
+		                </ul>
+					</div>
+				
+					<div class="feature-item mb-5 mb-lg-0">
+						<div class="feature-icon mb-4">
+							<i class="icofont-support"></i>
+						</div>
+						<span>Favqulodda holartlar uchun</span>
+						<h4 class="mb-3">+998901234567</h4>
+						<p>Favqulodda holatlar uchun yuqoridagi telefon raqamiga qo'ng'iroq qilishingiz mumkin</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="section service gray-bg">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-7 text-center">
+				<div class="section-title">
+					<h2>Qabuliga yozilgan doktorlar</h2>
+					<div class="divider mx-auto my-4"></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			{% for sick_item in sick_items %}
+				<div class="col-lg-4 col-md-6 col-sm-6">
+					<div class="service-item mb-4">
+						<div class="icon d-flex align-items-center">
+							<i class="icofont-doctor text-lg"></i>
+							<h4 class="mt-3 mb-3">{{ sick_item.doctor.first_name|title }} {{ sick_item.doctor.last_name|title }}</h4>
+						</div>
+
+						<div class="content">
+							<p class="mb-4">{{ sick_item.doctor.description|linebreaks }}</p>
+						</div>
+						<p>Qabul: {{ sick_item.weekday }}</p>
+						<a class="btn btn-danger" href="{% url 'get-doctor' sick_item.doctor.slug %}">Batafsil</a>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</section>
+{% endblock content %}
+   

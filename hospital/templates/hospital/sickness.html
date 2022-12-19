@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %} Yo'nalishlar {% endblock title %}
+
+{% block content %}
+
+{% include 'navbar.html' %}
+
+
+<section class="section service-2">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-7 text-center">
+				<div class="section-title">
+					<h2>Kasallikni tanlang</h2>
+					<div class="divider mx-auto my-4"></div>
+					<p>Kasallikni tanlash orqali o'z dardingizga yechim topasiz</p>
+				</div>
+			</div>
+		</div>
+
+        <form class="search-form" action="?search={{ search_query }}" method="GET">
+                <input placeholder="Kasalliklarni izlash" name="search_query" type="text" class="form-control" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Kasalliklarni izlash'">
+        </form>
+
+		<div class="row mt-5">
+			{% for sickness in get_sickness %}
+				<div class="col-lg-4 col-md-6 ">
+					<div class="department-block mb-5">
+						<img src="{{ sickness.photo.url }}" alt="" class="img-fluid w-100">
+						<div class="content">   
+							<h4 class="mt-4 mb-2 title-color">{{ sickness.name }}</h4>
+							<a href="{% url 'sickness-detail' sickness.slug %}" class="read-more">Batafsil <i class="icofont-simple-right ml-2"></i></a>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</section>   
+
+{% endblock content %}
