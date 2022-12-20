@@ -77,7 +77,7 @@
 					<h5 class="mb-4">Navbat</h5>
 					<ul class="list-unstyled department-service">
 						{% for sick in sick_item %}
-							<li><i class="icofont-check mr-2"></i>{{ sick.account.phone_number }}</li>
+							<li><i class="icofont-check mr-2"></i>{{ sick.account.username }}</li>
 						{% endfor %}
 
 						{% if request.user in doctor.sick_list.all %}
